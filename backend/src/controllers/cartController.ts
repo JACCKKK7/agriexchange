@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { Cart } from '../models/Cart.js';
 import { Product } from '../models/Product.js';
 
-// Get cart for user
+// Get cart for use
 export const getCart = async (req: any, res: Response) => {
   try {
     const userId = req.user.userId;
