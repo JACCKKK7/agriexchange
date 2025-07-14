@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Cart } from '../models/Cart.js';
-import { Product } from '../models/Product.js';
+import { Product, IProduct } from '../models/Product.js';
 
 // Get cart for user
 export const getCart = async (req: any, res: Response) => {
@@ -22,24 +22,25 @@ export const addToCart = async (req: any, res: Response) => {
     if (!cart) {
       cart = new Cart({ userId, items: [] });
     }
-    // Check product stock
-    const product = await Product.findById(productId);
+
+    const product = await Product.findById(productId) as IProduct | null;
     if (!product) {
       return res.status(404).json({ success: false, message: 'Product not found' });
     }
     if (product.quantity < quantity) {
       return res.status(400).json({ success: false, message: 'Not enough stock available' });
     }
-    // Decrement stock
+
     product.quantity -= quantity;
     await product.save();
-    // Add to cart
+
     const itemIndex = cart.items.findIndex((item: any) => item.productId.toString() === productId);
     if (itemIndex > -1) {
       cart.items[itemIndex].quantity += quantity;
     } else {
       cart.items.push({ productId, quantity });
     }
+
     cart.updatedAt = new Date();
     await cart.save();
     res.json({ success: true, data: cart });
@@ -55,19 +56,21 @@ export const updateCartItem = async (req: any, res: Response) => {
     const { productId, quantity } = req.body;
     const cart = await Cart.findOne({ userId });
     if (!cart) return res.status(404).json({ success: false, message: 'Cart not found' });
+
     const item = cart.items.find((item: any) => item.productId.toString() === productId);
     if (!item) return res.status(404).json({ success: false, message: 'Item not found' });
-    // Check product stock
-    const product = await Product.findById(productId);
+
+    const product = await Product.findById(productId) as IProduct | null;
     if (!product) {
       return res.status(404).json({ success: false, message: 'Product not found' });
     }
-    // Increment stock if quantity is reduced
+
     if (quantity < item.quantity) {
       const diff = item.quantity - quantity;
       product.quantity += diff;
       await product.save();
     }
+
     item.quantity = quantity;
     cart.updatedAt = new Date();
     await cart.save();
@@ -84,16 +87,18 @@ export const removeFromCart = async (req: any, res: Response) => {
     const { productId } = req.body;
     const cart = await Cart.findOne({ userId });
     if (!cart) return res.status(404).json({ success: false, message: 'Cart not found' });
+
     const item = cart.items.find((item: any) => item.productId.toString() === productId);
     if (!item) return res.status(404).json({ success: false, message: 'Item not found' });
-    // Check product stock
-    const product = await Product.findById(productId);
+
+    const product = await Product.findById(productId) as IProduct | null;
     if (!product) {
       return res.status(404).json({ success: false, message: 'Product not found' });
     }
-    // Increment stock
+
     product.quantity += item.quantity;
     await product.save();
+
     cart.items = cart.items.filter((item: any) => item.productId.toString() !== productId);
     cart.updatedAt = new Date();
     await cart.save();
@@ -109,14 +114,15 @@ export const clearCart = async (req: any, res: Response) => {
     const userId = req.user.userId;
     const cart = await Cart.findOne({ userId });
     if (!cart) return res.status(404).json({ success: false, message: 'Cart not found' });
-    // Restore product quantities
+
     for (const item of cart.items) {
-      const product = await Product.findById(item.productId);
+      const product = await Product.findById(item.productId) as IProduct | null;
       if (product) {
         product.quantity += item.quantity;
         await product.save();
       }
     }
+
     cart.items = [];
     cart.updatedAt = new Date();
     await cart.save();
