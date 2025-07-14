@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, User, Menu, X, Sprout, Newspaper, CloudSun } from 'lucide-react';
+import { ShoppingCart, User, Menu, X, Sprout } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import { Button } from '../ui';
