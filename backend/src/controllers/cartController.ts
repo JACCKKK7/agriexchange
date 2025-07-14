@@ -27,11 +27,9 @@ export const addToCart = async (req: any, res: Response) => {
     if (!product) {
       return res.status(404).json({ success: false, message: 'Product not found' });
     }
-    if (product.quantity < quantity) {
-      return res.status(400).json({ success: false, message: 'Not enough stock available' });
-    }
+
     // Decrement stock
-    product.quantity -= quantity;
+
     await product.save();
     // Add to cart
     const itemIndex = cart.items.findIndex((item: any) => item.productId.toString() === productId);
@@ -65,7 +63,7 @@ export const updateCartItem = async (req: any, res: Response) => {
     // Increment stock if quantity is reduced
     if (quantity < item.quantity) {
       const diff = item.quantity - quantity;
-      product.quantity += diff;
+
       await product.save();
     }
     item.quantity = quantity;
@@ -92,7 +90,7 @@ export const removeFromCart = async (req: any, res: Response) => {
       return res.status(404).json({ success: false, message: 'Product not found' });
     }
     // Increment stock
-    product.quantity += item.quantity;
+
     await product.save();
     cart.items = cart.items.filter((item: any) => item.productId.toString() !== productId);
     cart.updatedAt = new Date();
@@ -113,7 +111,7 @@ export const clearCart = async (req: any, res: Response) => {
     for (const item of cart.items) {
       const product = await Product.findById(item.productId);
       if (product) {
-        product.quantity += item.quantity;
+
         await product.save();
       }
     }
