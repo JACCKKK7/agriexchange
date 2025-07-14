@@ -183,7 +183,6 @@ export const AddProductPage: React.FC = () => {
                 <Input
                   label="Product Name"
                   id="product-name"
-                  name="name"
                   autoComplete="off"
                   {...register('name')}
                   error={errors.name?.message}
@@ -196,7 +195,6 @@ export const AddProductPage: React.FC = () => {
                 </label>
                 <select
                   id="category"
-                  name="category"
                   autoComplete="off"
                   {...register('category')}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
@@ -221,7 +219,6 @@ export const AddProductPage: React.FC = () => {
               </label>
               <textarea
                 id="description"
-                name="description"
                 autoComplete="off"
                 {...register('description')}
                 rows={4}
