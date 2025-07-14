@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, Button, Input, Loader } from '../components/ui';
-import { Clock, TrendingUp, Users, Send } from 'lucide-react';
+import { TrendingUp, Users, Send } from 'lucide-react';
 import { getSocket } from '../utils/socket';
 
 interface Bid {
@@ -190,7 +190,7 @@ const BiddingRoomPage: React.FC = () => {
               <div key={bid._id} className="flex justify-between items-center py-2">
                 <div>
                   <span className="font-medium">₹{bid.amount.toLocaleString()}</span>
-                  <span className="ml-2 text-gray-500 text-sm">by {bid.trader?.name || bid.traderId?.name || 'Unknown'}</span>
+                  <span className="ml-2 text-gray-500 text-sm">by {bid.trader?.name || 'Unknown'}</span>
                 </div>
                 <div className="text-xs text-gray-400">{new Date(bid.timestamp).toLocaleString()}</div>
               </div>
