@@ -22,7 +22,7 @@ export const LiveBiddingPage: React.FC = () => {
       try {
         const headers: Record<string, string> = {};
         if (token) headers['Authorization'] = `Bearer ${token}`;
-        const response = await fetch('http://localhost:5000/api/bidding/active', { headers });
+        const response = await fetch('https://agriexchange.onrender.com/api/bidding/active', { headers });
         if (response.ok) {
           const data = await response.json();
           if (data.success && data.data) {

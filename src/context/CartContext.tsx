@@ -36,7 +36,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const fetchCart = async () => {
     if (!token) return;
     try {
-      const res = await fetch('http://localhost:5000/api/cart', {
+      const res = await fetch('https://agriexchange.onrender.com/api/cart', {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -71,7 +71,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const addToCart = async (product: RetailProduct, quantity: number): Promise<void> => {
     if (!token) return;
-    const res = await fetch('http://localhost:5000/api/cart/add', {
+    const res = await fetch('https://agriexchange.onrender.com/api/cart/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const removeFromCart = async (productId: string): Promise<void> => {
     if (!token) return;
-    await fetch('http://localhost:5000/api/cart/remove', {
+    await fetch('https://agriexchange.onrender.coms/api/cart/remove', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const updateQuantity = async (productId: string, quantity: number): Promise<void> => {
     if (!token) return;
-    await fetch('http://localhost:5000/api/cart/update', {
+    await fetch('https://agriexchange.onrender.com/api/cart/update', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const clearCart = async (): Promise<void> => {
     if (!token) return;
-    await fetch('http://localhost:5000/api/cart/clear', {
+    await fetch('https://agriexchange.onrender.com/api/cart/clear', {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` },
     });

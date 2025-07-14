@@ -52,7 +52,7 @@ export const FarmerDashboard: React.FC = () => {
       
       // Fetch real products from backend
       const token = localStorage.getItem('agrixchange_token');
-      const response = await fetch('http://localhost:5000/api/products/my/products', {
+      const response = await fetch('https://agriexchange.onrender.com/api/products/my/products', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

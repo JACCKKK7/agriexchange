@@ -36,7 +36,7 @@ export const ProductsPage: React.FC = () => {
       setLoading(true);
       const headers: Record<string, string> = {};
       if (token) headers['Authorization'] = `Bearer ${token}`;
-      const response = await fetch('http://localhost:5000/api/products', { headers });
+      const response = await fetch('https://agriexchange.onrender.com/api/products', { headers });
       if (response.ok) {
         const data = await response.json();
         if (data.success && data.data) {
@@ -143,7 +143,7 @@ export const ProductsPage: React.FC = () => {
     if (!imgPath) return 'https://images.unsplash.com/photo-1546470427-e5f5e7e7ff34?w=150&h=150&fit=crop';
     if (imgPath.startsWith('http')) return imgPath;
     // Prepend backend URL for relative paths
-    return `http://localhost:5000${imgPath}`;
+    return `https://agriexchange.onrender.com/${imgPath}`;
   };
 
   // ProductCard now accepts handlers as props
@@ -175,7 +175,7 @@ export const ProductsPage: React.FC = () => {
       setSubmitting(true);
       setError(null);
       try {
-        const res = await fetch(`http://localhost:5000/api/products/${product.id}/rate`, {
+        const res = await fetch(`https://agriexchange.onrender.com/api/products/${product.id}/rate`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

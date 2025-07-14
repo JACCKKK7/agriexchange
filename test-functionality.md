@@ -4,7 +4,7 @@
 
 ### 1. Application Setup
 - ✅ Frontend server running on http://localhost:5173
-- ✅ Backend server running on http://localhost:5000
+- ✅ Backend server running on https://agriexchange.onrender.com/
 - ✅ MongoDB connection established
 - ✅ All TypeScript errors resolved
 
