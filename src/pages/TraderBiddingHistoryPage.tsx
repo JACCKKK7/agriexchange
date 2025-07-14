@@ -16,7 +16,7 @@ export const TraderBiddingHistoryPage: React.FC = () => {
   const { user } = useAuth();
   const [history, setHistory] = useState<BidHistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   useEffect(() => {
     setLoading(true);
