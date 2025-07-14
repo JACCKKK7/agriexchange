@@ -47,7 +47,6 @@ export const TraderDashboard: React.FC = () => {
       setLoading(true);
       // Simulate API call for all bids by this trader
       // In real app, fetch from backend using user.id
-      const currentUserId = user?.id || 'trader1';
       await new Promise(resolve => setTimeout(resolve, 1000));
       // Mock bids data (all biddings for this trader)
       const mockBids: Bid[] = [
